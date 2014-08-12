@@ -27,12 +27,14 @@ angular.module('yum', ['ngRoute', 'btford.markdown']).
     $locationProvider.html5Mode(true);
   }).
   controller('PageController', function ($scope, $http, $location, $routeParams) {
+    $scope.page = {};
     $http.get('/api/page/' + $routeParams.id).success(function (data) {
       $scope.page = data;
     });
     $scope.delPage = function () {
       $http.delete('/api/page/' + $routeParams.id).success(function () {
-        $location.url('/'); });
+        $location.url('/'); 
+      });
     };
     $scope.editPage = function () {
       $http.post('/api/page', $scope.page).success(function (data) {
