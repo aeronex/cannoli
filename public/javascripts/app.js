@@ -26,6 +26,10 @@ angular.module('yum', ['ngRoute', 'btford.markdown']).
       });
     $locationProvider.html5Mode(true);
   }).
+  controller('IndexController', function ($scope, $http) {
+    $http.get('/api/index').success(function (data) {
+      $scope.pages = data;
+  }).
   controller('PageController', function ($scope, $http, $location, $routeParams) {
     $scope.page = {};
     $http.get('/api/page/' + $routeParams.id).success(function (data) {
@@ -45,9 +49,6 @@ angular.module('yum', ['ngRoute', 'btford.markdown']).
       $http.post('/api/page', $scope.page).success(function (data) {
         $location.url('/page/' + $scope.page.title);
       });
-  }).
-  controller('IndexController', function ($scope, $http) {
-    $http.get('/api/index').success(function (data) {
-      $scope.pages = data;
+    };
   });
 });
